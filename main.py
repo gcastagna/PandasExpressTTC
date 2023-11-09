@@ -74,6 +74,10 @@ def synchronize_locations_ls(location, reference_list):
     i = 0 
     for item in reference_list:
         string=str(item)
+<<<<<<< Updated upstream
+=======
+
+>>>>>>> Stashed changes
         similarity_scores.append(compute_similarity(location, string))
     # 2) find the highest score in this list
     max_score = max(similarity_scores)
