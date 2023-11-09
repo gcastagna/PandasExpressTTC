@@ -29,8 +29,12 @@ df_2021 = df_2021.iloc[:, :-3]
 df_2022 = read_excel_sheets('bus_2022.xlsx')
 df_2022.rename(columns={'Date': 'Report Date'}, inplace=True)
 
+print('read individual sheets')
+
 bus_delay_list = [df_2014,df_2015,df_2016,df_2017,df_2018,df_2019,df_2020,df_2021,df_2022]
 df_bus_delay = pd.concat(bus_delay_list)
+
+print('Concatination complete')
 
 df_bus_delay['YTime'] = pd.to_datetime(df_bus_delay['Time'], format='%H:%M:%S', errors='coerce').dt.strftime('%H:%M')
 df_bus_delay['DateTime'] = df_bus_delay['Report Date'].dt.strftime('%Y-%m-%d')+'-'+ df_bus_delay['YTime']
@@ -48,9 +52,13 @@ df_bus_delay['copy'] = df_bus_delay['copy'].astype(str)
 df_bus_delay = df_bus_delay[~df_bus_delay['copy'].str.isdigit()]
 df_bus_delay['copy'] = df_bus_delay['copy'].apply(lambda x: '&'.join(sorted(x.split('&'))) if x.count('&') == 1 else x)
 
+
+
 stops = pd.read_csv('stops.txt')
 stops['cleaned_stops'] = stops['stop_name'].str.replace('at', '&').str.replace('Rd', '').str.replace('Ave', '').str.replace('Dr', '').str.replace('St', '')
 stops['cleaned_stops'] = stops['cleaned_stops'].str.replace(' ', '').str.lower()
+
+print('Cleaning complete')
 
 def compute_similarity(string1, string2):
     distance = Levenshtein.distance(string1, string2)
@@ -63,20 +71,24 @@ def compute_similarity(string1, string2):
 def synchronize_locations_ls(location, reference_list):
     # 1) create an array with the similarity scores between the location and each entry in reference list
     similarity_scores = []
+    i = 0 
     for item in reference_list:
         string=str(item)
-        print(location)
-        print(string)
-        print(compute_similarity(location[0], string))
         similarity_scores.append(compute_similarity(location, string))
     # 2) find the highest score in this list
     max_score = max(similarity_scores)
     # 3) if the score is above the threshold, return the string from the list that corresponds to the highest score
-    interpolated = reference_list[similarity_scores.index(max_score)] if max_score <= 70 else "user check"
+    interpolated = reference_list[similarity_scores.index(max_score)] if max_score <= 10 else "user check"
+    i += 1
+    print(i)
     return interpolated
+
+print('Defined similarity functions')
+
 
 np_copy = list(df_bus_delay['copy'])
 np_stops = list(stops['cleaned_stops'])
 
-synchronized_values = synchronize_locations_ls(np_copy, np_stops)
-df_bus_delay['synchronized'] = synchronized_values
+df_bus_delay['synchronized'] = df_bus_delay['copy'].apply(synchronize_locations_ls(np_copy, np_stops))
+
+print('complete')
