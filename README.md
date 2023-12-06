@@ -47,6 +47,6 @@ _Geospatial playground_ – This notebook was used to create the geospatial visu
 _DataAnalytics_ – This notebook was used to create all the analytical visualizations shown in the article, such as delays by month/year, category, issue and precipitation type. The notebook used data from the ‘Clean Bus Delays’ and ‘Merge Delays with Climate Data’ subfolders from the ‘DataProcessingCleaned-1Dec2023’ folder
 
 
-**Medium Article Link** - 
+**Medium Article Link** - https://medium.com/@avery.hoffer/predicting-ttc-bus-delays-6926028327fe
 
-**Presentation** - 
+**Presentation** - In the repository as 'Presentation.pdf'. This file is our team's final presentation displaying our methods and findings for the project.
