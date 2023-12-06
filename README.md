@@ -4,7 +4,8 @@ Introduction:
 This Repository is created for 'The Big Project' for CME538 - Data Science, to understand the performance assessment of TTC bus delays. In this project, data was collected,  concatenated and cleaned to form a large data frame containing all of the TTC bus delays and their attributes. The data was collected from several sources, such as UofT and TTC, as depicted in the project’s workflow and follows three phases of Data Analytics Visualization, Geospatial Visualizations and Predictive model training performed on the dataset.
 
 
-![workflow3](https://github.com/gcastagna/PandasExpressTTC/assets/144471904/c0ff6d4f-6984-439c-877e-3283994b47a3)
+![workflow4](https://github.com/gcastagna/PandasExpressTTC/assets/144471904/428a7f50-f6e0-48f7-a51e-c64f1acb539d)
+
 
 
 
